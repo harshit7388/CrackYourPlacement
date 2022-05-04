@@ -1,0 +1,20 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+     
+        if(nums.length == 0) return 0;
+        int i =0, j=1;
+        while(j<nums.length){
+            
+            if(nums[i] == nums[j])j++; // until the value at ith and jth indx are same move j ahead.
+            
+            else{ // when j and ith idx values becomes unequal store jth idx value in ith idx.this will remove the duplicate value.
+                i++;
+
+                nums[i] = nums[j];
+            }
+        }
+        return i+1;
+        
+    }
+}
+// leetcode
