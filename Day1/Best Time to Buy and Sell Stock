@@ -1,0 +1,13 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxpro = 0;
+        int msf = prices[0];
+        for(int  i =0;i<prices.length ; i++){
+            msf = Math.min(msf , prices[i]);
+            int profit = prices[i] - msf;
+            maxpro = Math.max(maxpro , profit);
+        }
+        return maxpro;
+    }
+}
+// leetcode
