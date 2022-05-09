@@ -1,0 +1,47 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
+        
+        if(nums == null || nums.length == 0)
+            return res;
+        
+        int len = nums.length;
+        
+        Arrays.sort(nums);
+        
+        for(int i = 0 ;i<len; i++){
+            for(int j = i +1; j<len; j++){
+                int ttarget = target - nums[i] - nums[j];  // sub the 2 values at i and j from orig target and store in temp target. then work to find tow such values taht sums upto temp target
+                int left = j+1;
+                int right = len-1;
+                
+                while(left < right){
+                    
+                    int tsum = nums[left] + nums[right]; // search two values at left and right and traverse from left to right to get remaining sum at left and right indexes of nums[] array.
+                    if(tsum < ttarget) left++;
+                    else if(tsum > ttarget) right--;
+                    
+                    else{   // if tsum == ttarget then create new list and put all 4 values as valid combiantion to new list tlist.
+                        
+                        ArrayList<Integer> tlist = new ArrayList<>();
+                        tlist.add(nums[i]);
+                        tlist.add(nums[j]);
+                        tlist.add(nums[left]);
+                        tlist.add(nums[right]);
+                        
+                        res.add(tlist); // finally add ttlist to resultant list
+                    
+                        while(left<right && nums[left] == tlist.get(2)) left++; // check for duplicates at 3rd postion
+                        while(left<right && nums[right] == tlist.get(3)) right--; // check for duplicates at 4th postion
+                        
+                    }
+                    
+                }
+                while(j+1 <len && nums[j] == nums[j+1]) j++; // check for duplicates at 2nd postion
+                while(i+1 <len && nums[i] == nums[i+1]) i++;// // check for duplicates at 1st postion
+            }
+        }
+        return res;
+        
+    }
+}
