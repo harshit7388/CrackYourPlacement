@@ -1,0 +1,27 @@
+class TimeMap {
+
+    HashMap<String, List<Pair<Integer, String>>> hm = new HashMap<>();
+    
+    public void set(String key, String value, int timestamp) {
+        hm.putIfAbsent(key, new ArrayList<>());
+        hm.get(key).add(new Pair<>(timestamp, value));
+        
+        
+    }
+    
+    public String get(String key, int timestamp) {
+     if (!hm.containsKey(key)) return "";
+    return binarySearch(hm.get(key), timestamp);   
+    }
+    
+    String binarySearch(List<Pair<Integer, String>> L, int timestamp) {
+    int left = 0, right = L.size();
+        
+    while (left < right) {
+      int mid = left + (right - left) / 2;
+      if (L.get(mid).getKey() <= timestamp) left = mid + 1;
+      else right = mid;
+    }
+    return right == 0 ? "" : L.get(right - 1).getValue();
+}
+}
