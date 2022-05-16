@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        
+        HashMap<Character, Integer> hms = new HashMap<>(); // make map for string s
+         HashMap<Character, Integer> hmt = new HashMap<>();// make map for string t
+        
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            hms.put(ch, hms.getOrDefault(ch,0) + 1); // put all characters of string s in map
+            
+        }
+        
+        for(int i=0; i<t.length(); i++){
+            char ch = t.charAt(i);
+            hmt.put(ch, hmt.getOrDefault(ch,0) + 1);  // put all characters of string t in map
+            
+        }
+         
+        if(hms.equals(hmt)) return true; // compare both the maps , if they are exactly same then its anagrama
+        
+        else return false;
+        
+    }
+}
