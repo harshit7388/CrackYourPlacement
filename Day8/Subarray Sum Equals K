@@ -1,0 +1,30 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        
+        if(nums.length == 0)
+            return 0;
+        
+        int count=0;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int cur_sum = 0;
+        
+        for(int i : nums){
+            cur_sum = cur_sum + i;
+            
+            if(cur_sum == k)
+                count++;
+            
+            if(hm.containsKey(cur_sum - k))
+                count = count + hm.get(cur_sum - k);
+            if(hm.containsKey(cur_sum)){
+                int val = hm.get(cur_sum) + 1;
+                hm.replace(cur_sum, val);
+                
+            }
+            else
+                hm.put(cur_sum, 1);
+            
+        }
+        return count;
+    }
+}
