@@ -1,0 +1,34 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        
+        
+        String[] words = s.split(" ");
+        
+        if(words.length != pattern.length())
+            return false;
+        
+        HashMap<Character, String> hm1 = new HashMap<>();
+        HashMap<String, Boolean> hm2 = new HashMap<>();
+        
+        for(int i=0 ;i<pattern.length(); i++){
+            char ch1 = pattern.charAt(i);
+            
+            if(hm1.containsKey(ch1) == false){
+                if(hm2.containsKey(words[i]) == true){
+                    return false;
+                }
+                else{
+                    hm2.put(words[i], true);
+                    hm1.put(ch1, words[i]);  
+                }
+            }
+            else{
+                String mwith = hm1.get(ch1);
+                if(mwith.equals(words[i]) == false)
+                    return false;
+            }
+        }
+        return true;
+        
+    }
+}
