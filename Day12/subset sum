@@ -1,0 +1,71 @@
+// { Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while(t-- > 0)
+        {
+            int N = Integer.parseInt(read.readLine());
+            String input_line[] = read.readLine().trim().split("\\s+");
+            int arr[]= new int[N];
+            for(int i = 0; i < N; i++)
+                arr[i] = Integer.parseInt(input_line[i]);
+            int sum = Integer.parseInt(read.readLine());
+
+            Solution ob = new Solution();
+            if(ob.isSubsetSum(N, arr, sum))
+            System.out.println(1);
+            else
+            System.out.println(0);
+
+            
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+
+
+    static Boolean isSubsetSum(int N, int arr[], int sum){
+        // code here
+        
+        boolean dp[][] = new boolean[N+1][sum+1];  
+        // dp array will contain N in rows and sum in cols
+        
+        for(int i=0; i<N+1; i++){
+        for(int j=0; j<sum+1; j++){
+            if(i==0) dp[i][j] = false; // for 0th row mark all as false
+            if(j==0) dp[i][j] = true; // for 0th col mark all as true
+            
+        }
+        }
+        
+        
+         for(int i=1; i<=N; i++){
+            
+            for(int j=1; j<=sum; j++){
+                
+                if(j >= arr[i-1]){
+                    int rsum = j - arr[i-1];
+                    dp[i][j] = dp[i-1][rsum] ||  dp[i-1][j];  // find OR between them 
+                    // in knapsack instead of OR there was max. here values will be T/F so use OR.
+                    
+                }
+                else dp[i][j] = dp[i-1][j];
+}
+}
+        return dp[N][sum];
+}
+}
+
+
+
