@@ -1,0 +1,24 @@
+class Solution {
+    public int jump(int[] nums) {
+        int idx = 0 , max = nums[0], target = nums[0], count = 1;
+        
+        if(nums.length == 0)return -1;
+        if(nums.length == 1)return 0;
+        
+        
+        for(idx = 1; idx<nums.length ; idx++){
+            if(idx == nums.length - 1) return count;
+            max = Math.max(idx + nums[idx],max);
+            
+            if(idx == target){
+                target = max;
+                count++;
+                    
+        }
+            
+        }
+        
+        return count ;
+        
+    }
+}
