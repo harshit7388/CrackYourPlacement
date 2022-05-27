@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> magazineMap = new HashMap<>();
+        
+        for(char ch: magazine.toCharArray()) {
+            if(magazineMap.containsKey(ch)) {
+                magazineMap.put(ch, magazineMap.get(ch) + 1);
+            }
+            else {
+                magazineMap.put(ch, 1);
+            }
+        }
+        
+        for(char ch: ransomNote.toCharArray()) {
+            if(magazineMap.containsKey(ch)) {
+                int newValue = magazineMap.get(ch) - 1;
+                if(newValue >= 0)
+                    magazineMap.put(ch, magazineMap.get(ch) - 1);
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+        
+        return true;
+    }
+}
