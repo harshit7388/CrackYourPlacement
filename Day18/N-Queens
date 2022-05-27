@@ -1,0 +1,74 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        char board[][] = new char[n][n];
+        for(int i=0; i<n ;i++)
+            for(int j=0; j<n ;j++)
+                board[i][j] = '.';
+        
+        List<List<String>> res = new ArrayList<List<String>>();
+        int leftrow[] = new int[n];
+        
+        /*
+        make 2 arrays for storing the upper and lower diagonal values. if they are 0 then only we can place Q here. otherwise search for new column.
+        */
+        int ud[] = new int[2*n-1]; 
+        int ld[] = new int[2*n-1];
+        
+        solve(0, board, res, leftrow, ld, ud);
+        
+        return res;
+        
+    }
+    
+    void solve(int col, char board[][], List<List<String>> res, int leftrow[], int ld[], int ud[]){
+        if(col == board.length){
+            res.add(construct(board));
+            return;
+    }
+    for(int row=0 ;row< board.length; row++){
+        if(leftrow[row] == 0 && ud[ board.length-1+col-row] == 0 && ld[col+row] == 0){
+            board[row][col] = 'Q'; // place Q here if left row = 0 , upper & lower diagonal's are 0.
+            
+            /* 
+            after placing queen make left row and upper & lower diagonal = 1, that means no other queen can be places at certain positions from further step.
+            
+            */
+            leftrow[row] = 1; 
+            ud[board.length-1+col-row] = 1;
+            ld[col+row] = 1;
+            
+            solve(col+1, board, res, leftrow, ld, ud);
+            
+            board[row][col] = '.';
+            
+            /* 
+            now backtrack to the previous branch if no queen is places. Therefore make all values of left row, lower and upper diagonal ad 0.
+            
+            */
+            leftrow[row] = 0 ;
+            ud[ board.length-1+col-row] = 0; 
+            ld[col+row] = 0 ;
+            
+        }
+    }
+        
+        
+        
+}
+    
+    
+    
+    
+    
+    List<String> construct(char board[][]){
+        List<String> res = new LinkedList<String>();
+        
+        for(int i=0; i< board.length; i++){
+            String str = new String(board[i]);
+            res.add(str);
+        }
+        return res;
+    }
+    
+    
+}
