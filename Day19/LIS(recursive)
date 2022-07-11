@@ -1,0 +1,22 @@
+class Solution 
+{
+    //Function to find length of longest increasing subsequence.
+    static int lis(int a[], int prev, int index, int n){
+        
+         /*  recursive solution*/ 
+        if(index == n) return 0;
+        else {
+            if(prev == -1 || a[prev] < a[index])
+                return (Math.max((1+lis(a, index, index+1, n)), lis(a, prev, index+1, n)));
+            else
+                return (lis(a, prev, index+1, n));
+        }
+    }
+    
+    static int longestSubsequence(int size, int a[])
+    {
+        // code here
+        return (lis(a,-1, 0 ,size));
+        
+    }
+} 
